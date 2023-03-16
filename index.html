@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Online Soundboard" />
+    <meta property="og:url" content="https://osb.ldgr.fr/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Play sounds simultanously online!" />
+    <meta property="og:image" content="/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <title>Online Soundboard</title>
+  </head>
+  <body>
+    <header id="header" class="header">
+      <nav id="header-nav" role="navigation">
+        <div class="header-item header-menu">
+          <div class="brand-container">
+            <a class="brand" href="/" title="Online Soundboard">
+              <svg><use href="/assets/icons-sprite.svg#logo"></use></svg>
+            </a>
+          </div>
+          <div class="hamburger-container">
+            <button class="hamburger" id="extend-header-nav">
+              <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="header-group">
+          <div class="header-item">
+            <span class="badge" id="total-clients-badge">1</span>
+              <div class="tooltip left">Connected</div>
+          </div>
+          <div class="header-group" id="board-pagination">
+            <button class="header-item" id="board-previous-page" type="button">
+              <svg><use href="/assets/icons-sprite.svg#arrow-up"></use></svg>
+              <div class="tooltip left">Previous page</div>
+            </button>
+            <button class="header-item" id="board-next-page" type="button">
+              <svg><use href="/assets/icons-sprite.svg#arrow-down"></use></svg>
+              <div class="tooltip left">Next page</div>
+            </button>
+          </div>
+          <div class="header-group">
+            <button class="header-item" type="button" data-toggle="modal" data-target="add-sound-modal">
+              <svg><use href="/assets/icons-sprite.svg#sounds"></use></svg>
+              <div class="tooltip left">Add sound</div>
+            </button>
+            <button class="header-item" id="global-volume" type="button" data-toggle="modal" data-target="volume-sound-modal">
+              <svg><use href="/assets/icons-sprite.svg#volume"></use></svg>
+              <div class="tooltip left">Change volume</div>
+            </button>
+            <button class="header-item" type="button" data-toggle="modal" data-target="board-settings-modal">
+              <svg><use href="/assets/icons-sprite.svg#settings"></use></svg>
+              <div class="tooltip left">Settings</div>
+            </button>
+            <button class="header-item" id="toggle-immersive" type="button">
+              <svg><use href="/assets/icons-sprite.svg#fullscreen"></use></svg>
+              <div class="tooltip left">Enter immersive</div>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="board">
+      <div id="sounds" data-page="0"></div>
+    </main>
+
+    <div id="not-found">
+      <h1 class="title">Board not found</h1>
+      <div class="background">
+        <svg viewBox="-7 -9.804 491 403.609" xmlns="http://www.w3.org/2000/svg">
+          <g class="left">
+            <path fill="rgb(147,147,147)" d="M309.026 121.705 L342.841 125.404 L354.58 18.086 Q326.891 42.562 272.215 90.517 L334.842 97.368 L309.026 121.705 L309.026 121.705 Z" />
+            <path fill="rgb(201,200,201)" d="M354.58 18.086 L342.841 125.404 L470.082 139.322 L484 12.081 L374.903 0.148 C369.943 4.549 364.094 9.723 354.58 18.086 L354.58 18.086 Z" />
+            <path fill="rgb(165,164,165)" d="M261.822 245.305 L328.922 252.645 L342.841 125.404 L309.026 121.705 L218.192 207.336 L297.718 216.035 L261.822 245.305 L261.822 245.305 Z" />
+            <path fill="rgb(203,203,203)" d="M342.841 125.404 L470.082 139.322 L456.163 266.563 L328.922 252.645 L342.841 125.404 Z" />
+            <path fill="rgb(235,234,235)" d="M207.029 368.075 L315.004 379.886 L328.922 252.645 L261.822 245.305 L195.001 299.793 L154.135 333.116 C154.263 333.275 165.484 334.271 191.003 336.347 Q205.948 337.597 233.878 339.827 L207.029 368.075 L207.029 368.075 Z" />
+            <path fill="rgb(154,155,154)" d="M328.922 252.645 L456.163 266.563 L442.245 393.804 L315.004 379.886 L328.922 252.645 Z" />
+            <path fill="rgb(140,140,141)" d="M191.003 336.347 L195.001 299.793 L154.135 333.116 C154.263 333.275 165.484 334.271 191.003 336.347 L191.003 336.347 Z" />
+          </g>
+          <g class="right">
+            <path fill="rgb(177,177,177)" d="M-7 10.9 L120.635 1.237 L130.298 128.872 L2.663 138.535 L-7 10.9 Z" />
+            <path fill="rgb(147,147,147)" d="M224.013 121.776 L130.298 128.872 L120.635 1.237 L248.269 -8.426 L249.782 11.558 Q227.055 40.699 182.106 97.872 L244.926 93.116 L224.013 121.776 L224.013 121.776 Z" />
+            <path fill="rgb(219,219,218)" d="M2.663 138.535 L130.298 128.872 L139.961 256.506 L12.327 266.17 L2.663 138.535 Z" />
+            <path fill="rgb(165,164,165)" d="M200.289 251.939 L139.961 256.506 L130.298 128.872 L224.013 121.776 L150.433 222.619 L230.205 216.58 L200.289 251.939 L200.289 251.939 Z" />
+            <path fill="rgb(140,140,141)" d="M147.375 354.429 L149.625 384.141 L21.99 393.804 L12.327 266.17 L139.961 256.506 L144.599 317.762 L110.541 358.017 C110.695 358.15 121.909 357.071 147.375 354.429 L147.375 354.429 Z" />
+            <path fill="rgb(235,234,235)" d="M144.599 317.762 L139.961 256.506 L200.289 251.939 L144.599 317.762 L110.541 358.017 C110.695 358.15 121.909 357.071 147.375 354.429 Q162.296 352.916 190.162 349.983 L168.95 382.678 L149.625 384.141 L147.375 354.429 C121.909 357.071 110.695 358.15 110.541 358.017 L144.599 317.762 L144.599 317.762 Z" />
+            <path fill="rgb(201,200,201)" d="M249.782 11.558 L248.269 -8.426 L266.47 -9.804 C262.401 -4.567 257.601 1.591 249.782 11.558 L249.782 11.558 Z" />
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="modals-container">
+      <div class="modal" id="join-board-modal" role="dialog">
+        <div class="modal-content">
+          <form id="join-board-form">
+            <div class="card">
+              <div class="card-header">
+                <h2>Board authentication</h2>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <input class="input" name="join-auth" type="password" placeholder="Password">
+                  <small class="input-invalid"></small>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button class="button primary" type="submit" disabled><div>Join</div></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal" id="add-sound-modal" role="dialog" data-close>
+        <div class="modal-content">
+          <form id="add-sound-form">
+            <div class="card">
+              <div class="card-header">
+                <svg><use href="/assets/icons-sprite.svg#sounds"></use></svg>
+                <h2>Board sound</h2>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <input class="input form-control" name="sound-name" type="text" maxlength="40" placeholder="Name">
+                  <small class="input-invalid"></small>
+                </div>
+                <div class="form-group">
+                  <label class="input-file">
+                    <input class="form-control" name="sound-file" type="file" accept="audio/*" tabindex="0">
+                    <div class="input">
+                      <svg><use href="/assets/icons-sprite.svg#music-note"></use></svg>
+                      <div class="input-label"></div>
+                      <span class="input-placeholder">Import audio</span>
+                    </div>
+                  </label>
+                  <small class="input-invalid"></small>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button class="link" type="button" data-dismiss="modal">Cancel</button>
+                <button class="button primary" type="submit">Add</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal" id="edit-sound-modal" role="dialog" data-close>
+        <div class="modal-content">
+          <form id="edit-sound-form">
+            <div class="card">
+              <div class="card-header">
+                <svg>
+                  <use href="/assets/icons-sprite.svg#sounds"></use>
+                </svg>
+                <h2>Board sound</h2>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <input class="input form-control" name="sound-name" type="text" maxlength="40" placeholder="Name">
+                  <small class="input-invalid"></small>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button class="link" type="button" data-dismiss="modal">Cancel</button>
+                <button class="button warning" type="submit">Edit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal" id="volume-sound-modal" role="dialog" data-close>
+        <div class="modal-content">
+          <form id="volume-sound-form">
+            <div class="card">
+              <div class="card-header">
+                <svg>
+                  <use href="/assets/icons-sprite.svg#volume-max"></use>
+                </svg>
+                <h2>Sound volume</h2>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <div class="input-range">
+                    <input class="input form-control" name="sound-volume" type="range">
+                    <div class="tooltip top">100%</div>
+                  </div>
+                  <small class="input-invalid"></small>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button class="link" type="button" data-dismiss="modal">Cancel</button>
+                <button class="button primary" type="submit">Set</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal" id="board-settings-modal" role="dialog" data-close>
+        <div class="modal-content">
+          <div class="card">
+            <div class="tabs">
+              <ul class="tab-list">
+                <li class="active" data-toggle="tab" data-target="security-tab" tabindex="0">Security</li>
+                <li data-toggle="tab" data-target="theme-tab" tabindex="0">Theme</li>
+              </ul>
+              <div class="tab-content">
+                <div id="security-tab" class="active">
+                  <form id="board-auth-form">
+                    <div class="card-body">
+                      <div class="form-group inline">
+                        <div class="input-placeholder">Lock</div>
+                        <label class="input-switch" tabindex="0">
+                          <input class="form-control" name="board-lock" type="checkbox" value="false">
+                          <span class="input-switch-slider"></span>
+                        </label>
+                      </div>
+                      <div class="form-group inline">
+                        <div class="input-placeholder">Password</div>
+                        <label class="input-switch" tabindex="0">
+                          <input class="form-control" name="board-enable-auth" type="checkbox" value="false">
+                          <span class="input-switch-slider"></span>
+                        </label>
+                      </div>
+                      <div class="form-group">
+                        <input class="input form-control" name="board-auth" type="password" placeholder="Password" disabled>
+                        <small class="input-invalid"></small>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <button class="button primary" type="submit">Save</button>
+                    </div>
+                  </form>
+                </div>
+                <div id="theme-tab">
+                  <div class="card-body">
+                    <div id="theme-palettes"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
